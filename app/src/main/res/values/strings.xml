@@ -1,0 +1,254 @@
+<resources>
+    <string name="app_name">Βιβλιοθήκη Ο.Π.Α.</string>
+    <string name="manage_borrowers">Διαχείριση Δανειζομένων</string>
+    <string name="manage_books">Διαχείριση Βιβλίων</string>
+    <string name="welcome_message">Καλωσορίσατε στη Βιβλιοθήκη μας!</string>
+    <string name="add_new_borrower">Εγγραφή</string>
+
+    <string name="borrower_list">Λίστα Δανειζομένων</string>
+    <string name="borrower_add">Εγγραφή Δανειζομένου</string>
+    <string name="borrower_details">Πληροφορίες Δανειζομένου</string>
+
+    <string name="first_name">Όνομα</string>
+    <string name="last_name">Επώνυμο</string>
+    <string name="user_id">Κωδικός</string>
+    <string name="category">Κατηγορία</string>
+    <string name="telephone">Τηλέφωνο</string>
+    <string name="email">E-mail</string>
+
+    <string name="country">Χώρα</string>
+    <string name="city">Πόλη</string>
+    <string name="street">Οδός</string>
+    <string name="number">Αριθμός</string>
+    <string name="zip">Τ.Κ.</string>
+
+
+    <string name="basic_info">Βασικές Πληροφορίες</string>
+    <string name="address">Πληροφορίες Διεύθυνσης</string>
+    <string name="loan_info">Πληροφορίες Δανισμών</string>
+    <string name="actions">Ενέργειες Λογαριασμού</string>
+    <string name="complete_registration">Αποθήκευση</string>
+
+    <string name="edit_user">Επεξεργασία</string>
+    <string name="delete_user">Διαγραφή</string>
+
+    <string name="edit_loans">Εμφάνιση Δανισμών</string>
+
+    <string name="search">Αναζήτηση</string>
+
+
+    <string name="books_loaned">Χρωστάει</string>
+    <string name="books_returned">Επέστρεψε</string>
+    <string name="books_lost">Έχασε</string>
+
+    <string name="display_loans">Δάνεια Δανειζομένου</string>
+
+    <!--countries-->
+    <string-array name="country_names">
+        <item>Ελλάδα</item>
+        <item>Aργεντινή</item>
+        <item>Aυστραλία</item>
+        <item>Άγιος Βικέντιος και Γρεναδίνες</item>
+        <item>Άγιος Κίττις και Νάβις</item>
+        <item>Άγιος Μαρίνος</item>
+        <item>Αίγυπτος</item>
+        <item>Αγία Έδρα</item>
+        <item>Αγία Λουκία</item>
+        <item>Αζερμπαϊτζάν</item>
+        <item>Αιθιοπία</item>
+        <item>Ακτή Ελεφαντοστού</item>
+        <item>Αλβανία</item>
+        <item>Αλγερία</item>
+        <item>Ανγκόλα</item>
+        <item>Ανδόρρα</item>
+        <item>Αντίγκουα και Μπαρμπούντα</item>
+        <item>Αρμενία</item>
+        <item>Αυστρία</item>
+        <item>Αφγανιστάν</item>
+        <item>Αϊτή</item>
+        <item>Βέλγιο</item>
+        <item>Βενεζουέλα</item>
+        <item>Βερμούδες</item>
+        <item>Βιετνάμ</item>
+        <item>Βολιβία</item>
+        <item>Βοσνία και Ερζεγοβίνη</item>
+        <item>Βουλγαρία</item>
+        <item>Βραζιλία</item>
+        <item>Βόρεια Κορέα</item>
+        <item>Γαλλία</item>
+        <item>Γαλλική Γουιάνα</item>
+        <item>Γαλλική Πολυνησία</item>
+        <item>Γερμανία</item>
+        <item>Γεωργία</item>
+        <item>Γκάμπια</item>
+        <item>Γκάνα</item>
+        <item>Γκαμπόν</item>
+        <item>Γκουάμ</item>
+        <item>Γουαδελούπη</item>
+        <item>Γουατεμάλα</item>
+        <item>Γουιάνα</item>
+        <item>Γουινέα</item>
+        <item>Γρανάδα</item>
+        <item>Γροιλανδία</item>
+        <item>Δανία</item>
+        <item>Δημοκρατία του Κονγκό</item>
+        <item>Δομινικανή Δημοκρατία</item>
+        <item>Ελ Σαλβαδόρ</item>
+        <item>Ελβετία</item>
+        <item>Ερυθραία</item>
+        <item>Εσθονία</item>
+        <item>Ζάμπια</item>
+        <item>Ζιμπάμπουε</item>
+        <item>Ηνωμένα Αραβικά Εμιράτα</item>
+        <item>Ηνωμένο Βασίλειο</item>
+        <item>Ιαμαϊκή</item>
+        <item>Ιαπωνία</item>
+        <item>Ινδία</item>
+        <item>Ινδονησία</item>
+        <item>Ιορδανία</item>
+        <item>Ιράκ</item>
+        <item>Ιράν</item>
+        <item>Ιρλανδία</item>
+        <item>Ισημερινή Γουινέα</item>
+        <item>Ισημερινός</item>
+        <item>Ισλανδία</item>
+        <item>Ισπανία</item>
+        <item>Ισραήλ</item>
+        <item>Ιταλία</item>
+        <item>Κέιμαν Νήσοι</item>
+        <item>Κένυα</item>
+        <item>Κίνα</item>
+        <item>Καζακστάν</item>
+        <item>Καμερούν</item>
+        <item>Καμπότζη</item>
+        <item>Καναδάς</item>
+        <item>Κατάρ</item>
+        <item>Κεντροαφρικανική Δημοκρατία</item>
+        <item>Κιργιζιστάν</item>
+        <item>Κολομβία</item>
+        <item>Κομόρες</item>
+        <item>Κουβέιτ</item>
+        <item>Κούβα</item>
+        <item>Κροατία</item>
+        <item>Κόσοβο</item>
+        <item>Κόστα Ρίκα</item>
+        <item>Κύπρος</item>
+        <item>Λάος</item>
+        <item>Λίβανος</item>
+        <item>Λίχτενσταϊν</item>
+        <item>Λαϊκή Δημοκρατία του Κονγκό</item>
+        <item>Λεσόθο</item>
+        <item>Λεττονία</item>
+        <item>Λευκορωσία</item>
+        <item>Λιβερία</item>
+        <item>Λιβύη</item>
+        <item>Λιθουανία</item>
+        <item>Λουξεμβούργο</item>
+        <item>Μάλτα</item>
+        <item>Μαδαγασκάρη</item>
+        <item>Μακάου</item>
+        <item>Μαλάουι</item>
+        <item>Μαλί</item>
+        <item>Μαλαισία</item>
+        <item>Μαλδίβες</item>
+        <item>Μαρτινίκα</item>
+        <item>Μαρόκο</item>
+        <item>Μαυρίκιος</item>
+        <item>Μαυριτανία</item>
+        <item>Μαυροβούνιο</item>
+        <item>Μεξικό</item>
+        <item>Μογγολία</item>
+        <item>Μοζαμβίκη</item>
+        <item>Μολδαβία</item>
+        <item>Μονακό</item>
+        <item>Μοντσερράτ</item>
+        <item>Μπανγκλαντές</item>
+        <item>Μπαρμπάντος</item>
+        <item>Μπαχάμες</item>
+        <item>Μπαχρέιν</item>
+        <item>Μπελίζ</item>
+        <item>Μπενίν</item>
+        <item>Μποτσουάνα</item>
+        <item>Μπουρκίνα Φάσο</item>
+        <item>Μπουρούντι</item>
+        <item>Μπουτάν</item>
+        <item>Μπρουνέι</item>
+        <item>Μυανμάρ</item>
+        <item>Νέα Ζηλανδία</item>
+        <item>Νέα Καληδονία</item>
+        <item>Νήσοι Σολομώντα</item>
+        <item>Νήσοι Φερόες</item>
+        <item>Νίγηρας</item>
+        <item>Ναμίμπια</item>
+        <item>Νεπάλ</item>
+        <item>Νιγηρία</item>
+        <item>Νικαράγουα</item>
+        <item>Νιούε</item>
+        <item>Νορβηγία</item>
+        <item>Ντομίνικα</item>
+        <item>Νότια Κορέα</item>
+        <item>Νότιο Σουδάν</item>
+        <item>Νότιος Αφρική</item>
+        <item>Ολλανδία</item>
+        <item>Ολλανδικές Αντίλλες</item>
+        <item>Ομάν</item>
+        <item>Ονδούρα</item>
+        <item>Ουγγαρία</item>
+        <item>Ουγκάντα</item>
+        <item>Ουζμπεκιστάν</item>
+        <item>Ουκρανία</item>
+        <item>Ουρουγουάη</item>
+        <item>ΠΓΔΜ</item>
+        <item>Πακιστάν</item>
+        <item>Παλαιστίνη</item>
+        <item>Παναμάς</item>
+        <item>Παπούα Νέα Γουινέα</item>
+        <item>Παραγουάη</item>
+        <item>Παρθένοι Νήσοι</item>
+        <item>Περού</item>
+        <item>Πολωνία</item>
+        <item>Πορτογαλία</item>
+        <item>Πουέρτο Ρίκο</item>
+        <item>Πράσινο Ακρωτήριο</item>
+        <item>Ρεϋνιόν</item>
+        <item>Ρουάντα</item>
+        <item>Ρουμανία</item>
+        <item>Ρωσία</item>
+        <item>Σαμόα</item>
+        <item>Σαουδική Αραβία</item>
+        <item>Σενεγάλη</item>
+        <item>Σερβία</item>
+        <item>Σεϋχέλλες</item>
+        <item>Σιέρα Λεόνε</item>
+        <item>Σιγκαπούρη</item>
+        <item>Σλοβακία</item>
+        <item>Σλοβενία</item>
+        <item>Σομαλία</item>
+        <item>Σουαζιλάνδη</item>
+        <item>Σουδάν</item>
+        <item>Σουηδία</item>
+        <item>Σουρινάμ</item>
+        <item>Σρι Λάνκα</item>
+        <item>Συρία</item>
+        <item>Τανζανία</item>
+        <item>Τατζικιστάν</item>
+        <item>Ταϊβάν</item>
+        <item>Ταϊλάνδη</item>
+        <item>Τερκς και Κέικος</item>
+        <item>Τζιμπουτί</item>
+        <item>Τουρκία</item>
+        <item>Τουρκμενιστάν</item>
+        <item>Τρινιδάδ και Τομπάγκο</item>
+        <item>Τσαντ</item>
+        <item>Τσεχία</item>
+        <item>Τυνησία</item>
+        <item>Τόγκα</item>
+        <item>Τόγκο</item>
+        <item>Υεμένη</item>
+        <item>Φίτζι</item>
+        <item>Φιλιππίνες</item>
+        <item>Φινλανδία</item>
+        <item>Χιλή</item>
+        <item>Χονγκ Κονγκ</item>
+    </string-array>
+</resources>
