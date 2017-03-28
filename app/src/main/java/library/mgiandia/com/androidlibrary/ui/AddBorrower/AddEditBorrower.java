@@ -201,7 +201,8 @@ public class AddEditBorrower extends AppCompatActivity
         ((EditText)findViewById(R.id.edit_text_number_name)).setText(borrower.getAddress().getNumber());
         ((EditText)findViewById(R.id.edit_text_zip_name)).setText(borrower.getAddress().getZipCode().getCode());
 
-        ((Spinner)findViewById(R.id.edit_text_country_name)).setSelection(country_to_pos.get(borrower.getAddress().getCountry()));
+        Integer val = country_to_pos.get(borrower.getAddress().getCountry());
+        ((Spinner)findViewById(R.id.edit_text_country_name)).setSelection(val == null ? 0 : val);//if value not found, use greece.
 
         ((EditText)findViewById(R.id.edit_text_email_name)).setText(borrower.getEmail().getAddress());
         ((EditText)findViewById(R.id.edit_text_telephone_name)).setText(borrower.getTelephone().getTelephoneNumber());

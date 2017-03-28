@@ -7,10 +7,11 @@ import android.view.View;
 import android.widget.Button;
 
 import library.mgiandia.com.androidlibrary.R;
+import library.mgiandia.com.androidlibrary.dao.InitializeData;
 import library.mgiandia.com.androidlibrary.ui.ManageBooks.ManageBooks;
 import library.mgiandia.com.androidlibrary.ui.ManageBorrowers.ManageBorrowers;
 
-import static library.mgiandia.com.androidlibrary.ui.HomePage.InitializeData.initialize_borrower_categories;
+import static library.mgiandia.com.androidlibrary.dao.InitializeData.initialize_borrower_categories;
 
 public class HomePage extends AppCompatActivity {
 

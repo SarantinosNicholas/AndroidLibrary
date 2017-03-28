@@ -25,9 +25,9 @@ import library.mgiandia.com.androidlibrary.util.PixelUtils;
 
 public class BorrowerAdapter extends BaseAdapter implements Filterable
 {
-    private Context mContext;
-    private LayoutInflater mInflater;
-    private List<Borrower> mDataSource;
+    private Context context;
+    private LayoutInflater inflater;
+    private List<Borrower> data_source;
     private ItemFilter mFilter = new ItemFilter();
 
     private List<Borrower> get_all_borrowers_in_reverse_order()
@@ -45,21 +45,21 @@ public class BorrowerAdapter extends BaseAdapter implements Filterable
 
     public BorrowerAdapter(Context context)
     {
-        mContext = context;
-        mDataSource = get_all_borrowers_in_reverse_order();
-        mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.context = context;
+        data_source = get_all_borrowers_in_reverse_order();
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount()
     {
-        return mDataSource.size();
+        return data_source.size();
     }
 
     @Override
     public Object getItem(int position)
     {
-        return mDataSource.get(position);
+        return data_source.get(position);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class BorrowerAdapter extends BaseAdapter implements Filterable
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        View rowView = mInflater.inflate(R.layout.borrower_adapter_item, parent, false);
+        View rowView = inflater.inflate(R.layout.borrower_adapter_item, parent, false);
 
         Borrower borrower = (Borrower) getItem(position);
 
@@ -80,7 +80,7 @@ public class BorrowerAdapter extends BaseAdapter implements Filterable
         ((TextView) rowView.findViewById(R.id.item_details)).setText("Κωδικός: "+borrower.getBorrowerNo()+". Σύνολο δανισμών "+borrower.getLoans().size()+"."/*total loans no ever*/);
         ((TextView) rowView.findViewById(R.id.item_view_details)).setText(">");
 
-        PixelUtils.draw_initials_image(mContext, (ImageView) rowView.findViewById(R.id.item_image), borrower.getFirstName()+" "+borrower.getLastName());//generated the color based on the full name
+        PixelUtils.draw_initials_image(context, (ImageView) rowView.findViewById(R.id.item_image), borrower.getFirstName()+" "+borrower.getLastName());//generated the color based on the full name
         ((TextView) rowView.findViewById(R.id.image_text)).setText((borrower.getLastName().charAt(0)+""+borrower.getFirstName().charAt(0)).toUpperCase());
 
         return rowView;
@@ -88,8 +88,8 @@ public class BorrowerAdapter extends BaseAdapter implements Filterable
 
     public void reload()
     {
-        mDataSource.clear();
-        mDataSource.addAll(get_all_borrowers_in_reverse_order());
+        data_source.clear();
+        data_source.addAll(get_all_borrowers_in_reverse_order());
         notifyDataSetChanged();
     }
 
@@ -103,8 +103,8 @@ public class BorrowerAdapter extends BaseAdapter implements Filterable
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results)
         {
-            mDataSource.clear();
-            mDataSource.addAll((List<Borrower>) results.values);
+            data_source.clear();
+            data_source.addAll((List<Borrower>) results.values);
 
             notifyDataSetChanged();
         }
