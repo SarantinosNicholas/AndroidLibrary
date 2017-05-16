@@ -1,5 +1,10 @@
 package library.mgiandia.com.androidlibrary.domain;
 
+import android.util.Log;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import library.mgiandia.com.androidlibrary.contacts.Address;
 import library.mgiandia.com.androidlibrary.contacts.EmailAddress;
 import library.mgiandia.com.androidlibrary.contacts.TelephoneNumber;
@@ -10,15 +15,18 @@ import library.mgiandia.com.androidlibrary.contacts.TelephoneNumber;
  *
  */
 public class Publisher {
+    private int uid;
     private String name;
     private TelephoneNumber telephone;
     private EmailAddress eMail;
     private Address address;
 
+    private Set<Book> books = new HashSet<Book>();
+
     /**
      * Προκαθορισμένος κατασκευαστής.
      */
-    public Publisher() { }
+    //public Publisher() { }
 
     /**
      * Βοηθητικός κατασκευαστής που
@@ -28,12 +36,18 @@ public class Publisher {
      * @param eMail Διεύθυνση ηλεκτρονικού ταχυδρομείου
      * @param telephone Αριθμός τηλεφώνου
      */
-    public Publisher(String name, Address address,
+    public Publisher(int uid, String name, Address address,
             EmailAddress eMail, TelephoneNumber telephone) {
+
+        this.uid = uid;
         this.name = name;
         this.address = address == null ? null : new Address(address);
         this.eMail = eMail;
         this.telephone = telephone;
+    }
+
+    public int getID() {
+        return uid;
     }
 
     /**
@@ -100,4 +114,22 @@ public class Publisher {
         return this.address == null ? null : new Address(address);
     }
 
+    public Set<Book> getBooks() {
+        return new HashSet<Book>(books);
+    }
+
+    public void addBook(Book book)
+    {
+        if (book != null)
+        {
+            books.add(book);
+        }
+    }
+
+    public void removeBook(Book book)
+    {
+        if (book != null) {
+            books.remove(book);
+        }
+    }
 }

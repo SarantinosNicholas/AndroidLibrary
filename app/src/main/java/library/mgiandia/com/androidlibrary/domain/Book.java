@@ -8,6 +8,7 @@ import java.util.Set;
  * @author Νίκος Διαμαντίδης
  */
 public class Book {
+    private int uid;
     private ISBN isbn;
     private String title;
     private String publication;
@@ -30,15 +31,21 @@ public class Book {
      * @param publicationYear Έτος έκδοσης
      * @param publisher Εκδοτικός οίκος
      */
-    public Book(String title, ISBN isbn, String publication,
+    public Book(int uid, String title, ISBN isbn, String publication,
             int publicationYear, Publisher publisher) {
+        this.uid = uid;
         this.title = title;
         this.isbn = isbn;
         this.publication = publication;
         this.publicationyear = publicationYear;
         this.publisher = publisher;
+
+        setPublisher(publisher);
     }
 
+    public int getID() {
+        return uid;
+    }
 
     /**
      * Θέτει τον τίτλο του βιβλίου.
@@ -112,8 +119,13 @@ public class Book {
      * Θέτει τον εκδότη ({@link Publisher})του βιβλίου.
      * @param publisher Ο Εκδοτικός οίκος του βιβλίου
      */
-    public void setPublisher(Publisher publisher) {
+    public void setPublisher(Publisher publisher)
+    {
+        if(this.publisher != null)
+            this.publisher.removeBook(this);
+
         this.publisher = publisher;
+        publisher.addBook(this);
     }
 
     /**

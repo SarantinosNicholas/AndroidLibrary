@@ -10,25 +10,29 @@ import java.util.Set;
  */
 
 public class Author {
-
+    private int uid;
     private Person person = new Person();
     private Set<Book> books = new HashSet<Book>();
 
     /**
      * Προκαθορισμένος κατασκευαστής.
      */
-    public Author() { }
+    //public Author() { }
 
     /**
      * Βοηθητικός κατασκευαστής.
      * @param firstName Το μικρό όνομα.
      * @param lastName Το επώνυμο.
      */
-    public Author(String firstName, String lastName) {
+    public Author(int uid, String firstName, String lastName) {
+        this.uid = uid;
          person.setFirstName(firstName);
          person.setLastName(lastName);
     }
 
+    public int getID() {
+        return uid;
+    }
 
     /**
      * Θέτει το όνομα του συγγραφέα.

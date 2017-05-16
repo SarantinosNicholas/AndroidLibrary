@@ -1,13 +1,16 @@
 <resources>
     <string name="app_name">Βιβλιοθήκη Ο.Π.Α.</string>
-    <string name="manage_borrowers">Διαχείριση Δανειζομένων</string>
-    <string name="manage_books">Διαχείριση Βιβλίων</string>
     <string name="welcome_message">Καλωσορίσατε στη Βιβλιοθήκη μας!</string>
-    <string name="add_new_borrower">Εγγραφή</string>
 
-    <string name="borrower_list">Λίστα Δανειζομένων</string>
+    <string name="add_new_item">Προσθήκη</string>
+
     <string name="borrower_add">Εγγραφή Δανειζομένου</string>
     <string name="borrower_details">Πληροφορίες Δανειζομένου</string>
+
+    <string name="manage_borrowers">Δανειζομένοι</string>
+    <string name="manage_books">Βιβλία</string>
+    <string name="manage_publishers">Εκδοτικοί Οίκοι</string>
+    <string name="manage_authors">Συγγραφείς</string>
 
     <string name="first_name">Όνομα</string>
     <string name="last_name">Επώνυμο</string>
@@ -22,11 +25,13 @@
     <string name="number">Αριθμός</string>
     <string name="zip">Τ.Κ.</string>
 
+    <string name="author_add">Εγγραφή Συγγραφέα</string>
+    <string name="publisher_add">Εγγραφή Εκδοτικού Οίκου</string>
 
     <string name="basic_info">Βασικές Πληροφορίες</string>
     <string name="address">Πληροφορίες Διεύθυνσης</string>
     <string name="loan_info">Πληροφορίες Δανισμών</string>
-    <string name="actions">Ενέργειες Λογαριασμού</string>
+    <string name="actions">Δυνατές Ενέργειες</string>
     <string name="complete_registration">Αποθήκευση</string>
 
     <string name="edit_user">Επεξεργασία</string>
@@ -42,6 +47,33 @@
     <string name="books_lost">Έχασε</string>
 
     <string name="display_loans">Δάνεια Δανειζομένου</string>
+
+
+    <string name="gen_actions">Δυνατές Ενέργειες</string>
+    <string name="book_details">Πληροφορίες Βιβλίων</string>
+    <string name="s_book_details">Πληροφορίες Βιβλίου</string>
+    <string name="show_books">Εμφάνιση Βιβλίων</string>
+    <string name="books_published">Έκδωσε</string>
+    <string name="books_written">Έγραψε</string>
+    <string name="books">Βιβλία</string>
+
+
+    <string name="book_title">Τίτλος</string>
+    <string name="book_publisher">Εκδότης</string>
+    <string name="book_isbn">ISBN</string>
+    <string name="book_publication">Δημοσίευση</string>
+    <string name="book_publicationyear">Έτος</string>
+    <string name="book_copies">Αντίτυπα</string>
+    <string name="authors_title_text">Συγγραφείς</string>
+    <string name="author_1_text">Πρώτος</string>
+    <string name="author_2_text">Δεύτερος</string>
+    <string name="author_3_text">Τρίτος</string>
+    <string name="author_4_text">Τέταρτος</string>
+    <string name="author_5_text">Πέμπτος</string>
+    <string name="add_edit_book_label">Εγγραφή Βιβλίου</string>
+
+    <string name="show_copies">Αντίτυπα</string>
+
 
     <!--countries-->
     <string-array name="country_names">
