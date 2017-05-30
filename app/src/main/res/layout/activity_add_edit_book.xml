@@ -102,7 +102,7 @@
             android:textCursorDrawable="@drawable/custom_cursor"
             android:layout_alignParentRight="true"
             android:layout_toRightOf="@+id/text_view_isbn"
-            android:backgroundTint="@color/colorMediumSemiWhite"
+            android:backgroundTint="@color/colorSemiWhite"
             android:layout_marginRight="10dp"/>
 
         <TextView

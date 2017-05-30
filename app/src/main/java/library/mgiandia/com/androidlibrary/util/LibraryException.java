@@ -1,5 +1,8 @@
 package library.mgiandia.com.androidlibrary.util;
 
+/**
+ * @author Νίκος Διαμαντίδης
+ */
 
 @SuppressWarnings("serial")
 public class LibraryException extends RuntimeException {

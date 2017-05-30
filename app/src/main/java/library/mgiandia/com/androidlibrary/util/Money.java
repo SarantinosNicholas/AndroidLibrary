@@ -17,6 +17,8 @@ import java.util.Currency;
  * βαθμό θέματα στρογγυλοποιήσεων.
  * Αξίζει τον κόπο να εξετάσουμε μία πληρέστερη και καλύτερη
  * <a href="http://sourceforge.net/projects/timeandmoney">υλοποίηση</a>
+ * @author Νίκος Διαμαντίδης
+ *
  */
 
 

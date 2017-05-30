@@ -8,11 +8,18 @@ import android.widget.ArrayAdapter;
 
 import java.util.List;
 
+/**
+ * @author Νίκος Σαραντινός
+ *
+ * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
+ *
+ */
+
 public class MultiSelectSpinner extends android.support.v7.widget.AppCompatSpinner implements DialogInterface.OnMultiChoiceClickListener, DialogInterface.OnCancelListener
 {
     private List<String> items;
-    private boolean[] selected_indexes;
-    int selected_no;
+    private boolean[] selectedIndexes;
+    int selectedNo;
 
     public MultiSelectSpinner(Context arg0)
     {
@@ -30,26 +37,26 @@ public class MultiSelectSpinner extends android.support.v7.widget.AppCompatSpinn
     @Override
     public void onClick(DialogInterface dialog, int index, boolean checked)
     {
-        if(checked) selected_no++;
-        else selected_no--;
+        if(checked) selectedNo++;
+        else selectedNo--;
 
-        selected_indexes[index] = checked;
+        selectedIndexes[index] = checked;
     }
 
     @Override
     public void onCancel(DialogInterface dialog)
     {
         setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, new String[]{
-                selected_no == 0 ? "Επιλέξτε" : selected_no+" Επιλογές"
+                selectedNo == 0 ? "Επιλέξτε" : selectedNo+" Επιλογές"
         }));
-        this.onItemsSelected(selected_indexes);
+        this.onItemsSelected(selectedIndexes);
     }
 
     @Override
     public boolean performClick()
     {
         new AlertDialog.Builder(getContext())
-            .setMultiChoiceItems(items.toArray(new CharSequence[items.size()]), selected_indexes, this)
+            .setMultiChoiceItems(items.toArray(new CharSequence[items.size()]), selectedIndexes, this)
             .setPositiveButton(android.R.string.ok,
             new DialogInterface.OnClickListener() {
 
@@ -76,18 +83,18 @@ public class MultiSelectSpinner extends android.support.v7.widget.AppCompatSpinn
     public void setItems(List<String> items)
     {
         this.items = items;
-        selected_indexes = new boolean[items.size()];
-        this.selected_no = 0;
+        selectedIndexes = new boolean[items.size()];
+        this.selectedNo = 0;
     }
 
     public boolean[] getItemsIndexes()
     {
-        return selected_indexes;
+        return selectedIndexes;
     }
 
     public int getItemsIndexesNo()
     {
-        return selected_no;
+        return selectedNo;
     }
 
     public void onItemsSelected(boolean[] selected)

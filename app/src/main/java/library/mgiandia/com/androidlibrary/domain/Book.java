@@ -25,6 +25,7 @@ public class Book {
 
     /**
      * Βοηθητικός κατασκευαστής που αρχικοποιεί τα βασικά στοιχεία ενός βιβλίου.
+     * @param uid Ο μοναδικός κωδικός
      * @param title Τίτλος
      * @param isbn ISBN
      * @param publication Αριθμός έκδοσης
@@ -43,7 +44,11 @@ public class Book {
         setPublisher(publisher);
     }
 
-    public int getID() {
+    /**
+     * Επιστρέφει τον μοναδικό κωδικό του βιβλίου.
+     * @return Ο μοναδικός κωδικός του βιβλίου
+     */
+    public int getId() {
         return uid;
     }
 

@@ -1,116 +1,150 @@
 package library.mgiandia.com.androidlibrary.view.Borrower.ManageBorrowers;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import library.mgiandia.com.androidlibrary.R;
-import library.mgiandia.com.androidlibrary.domain.Borrower;
-import library.mgiandia.com.androidlibrary.view.Borrower.AddBorrower.AddEditBorrowerActivity;
-import library.mgiandia.com.androidlibrary.view.Borrower.BorrowerDetails.BorrowerDetailsActivity;
+import java.util.List;
 
-public class ManageBorrowersActivity extends AppCompatActivity implements SearchView.OnQueryTextListener
-{
-    private ListView item_list_view;
-    private SearchView search_list_view;
-    private BorrowerAdapter adapter;
+import library.mgiandia.com.androidlibrary.R;
+import library.mgiandia.com.androidlibrary.memorydao.BorrowerDAOMemory;
+import library.mgiandia.com.androidlibrary.util.Quadruple;
+import library.mgiandia.com.androidlibrary.view.Borrower.AddEditBorrower.AddEditBorrowerActivity;
+import library.mgiandia.com.androidlibrary.view.Borrower.BorrowerDetails.BorrowerDetailsActivity;
+import library.mgiandia.com.androidlibrary.view.Loans.ManageLoans.ManageLoansActivity;
+import library.mgiandia.com.androidlibrary.view.Returns.ManageReturns.ManageReturnsActivity;
+import library.mgiandia.com.androidlibrary.view.Util.AdvancedListAdapter;
+
+/**
+ * @author Νίκος Σαραντινός
+ *
+ * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
+ *
+ */
+
+public class ManageBorrowersActivity extends AppCompatActivity implements ManageBorrowersView, SearchView.OnQueryTextListener {
+    ManageBorrowersPresenter presenter;
+
+    private ListView itemListView;
+    private SearchView searchListView;
+    private AdvancedListAdapter adapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_items);
 
-        item_list_view = (ListView) findViewById(R.id.item_list_view);
+        adapter = new AdvancedListAdapter(this);
 
-        adapter = new BorrowerAdapter(this);
-        item_list_view.setAdapter(adapter);
-        item_list_view.setTextFilterEnabled(true);
+        itemListView = (ListView) findViewById(R.id.item_list_view);
+        itemListView.setAdapter(adapter);
+        itemListView.setTextFilterEnabled(true);
 
-        final Context new_context = this;
-        item_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+        searchListView = (SearchView) findViewById(R.id.items_list_search_view);
+        searchListView.setIconifiedByDefault(false);
+        searchListView.setOnQueryTextListener(this);
+
+        presenter = new ManageBorrowersPresenter(this, new BorrowerDAOMemory());
+
+        findViewById(R.id.item_add_new).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                Intent intent = new Intent(new_context, BorrowerDetailsActivity.class);
-                intent.putExtra("borrower_id", ((Borrower)parent.getItemAtPosition(position)).getBorrowerNo());
-                startActivityForResult(intent, 1/*request code 1, can be any integer*/);
+            public void onClick(View view) {
+                presenter.onStartAddNew();
             }
         });
 
-        //search
-        search_list_view = (SearchView) findViewById(R.id.items_list_search_view);
-
-        search_list_view.setIconifiedByDefault(false);
-        search_list_view.setOnQueryTextListener(this);
-        //done
-
-        final Button add_new_button = (Button) findViewById(R.id.item_add_new);
-        add_new_button.setOnClickListener(new View.OnClickListener()
-        {
+        itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view)
-            {
-                Intent intent = new Intent(view.getContext(), AddEditBorrowerActivity.class);
-                startActivityForResult(intent, 0/*request code 0, can be any integer*/);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                presenter.onClickItem(((Quadruple) parent.getItemAtPosition(position)).getUID());
             }
         });
     }
 
-    public boolean onQueryTextChange(String text)
-    {
+    public boolean onQueryTextChange(String text) {
         if (TextUtils.isEmpty(text))
-            item_list_view.clearTextFilter();
+            itemListView.clearTextFilter();
         else
-            item_list_view.setFilterText(text);
+            itemListView.setFilterText(text);
 
         return true;
     }
 
-    public boolean onQueryTextSubmit(String query)
-    {
+    public boolean onQueryTextSubmit(String query) {
         return false;
     }
 
-    private void clear_search_bar()
-    {
-        search_list_view.setQuery("", false);//clear the search view if there was text there
-        search_list_view.clearFocus();
-
-        adapter.reload();//reload the list
+    private void clear_search_bar() {
+        searchListView.setQuery("", false);
+        searchListView.clearFocus();
+        presenter.onLoadSource();
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {//we intentionally don't make this code more compact, so we get what's going on
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 0)//if "add new user activity finished"
-        {
-            if(resultCode == Activity.RESULT_OK)//and a new user was actually added. this won't fire if the back button was just pressed
-            {
-                clear_search_bar();
-                Toast.makeText(ManageBorrowersActivity.this, data.getStringExtra("message_to_toast"), Toast.LENGTH_LONG).show();
-            }
-        }
-        else if(requestCode == 1)//if "delete user (found on user details) activity finished"
-        {
-            clear_search_bar();//when this activity exits always refresh the list because it's possible a user was editted or deleted
+        if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
+            clear_search_bar();
+            presenter.onShowToast(data.getStringExtra("message_to_toast"));
+        } else if (requestCode == 1) {
+            clear_search_bar();
 
-            if(resultCode == Activity.RESULT_OK)//and the user was actually deleted
-                Toast.makeText(ManageBorrowersActivity.this, data.getStringExtra("message_to_toast"), Toast.LENGTH_LONG).show();
+            if (resultCode == Activity.RESULT_OK)
+                presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
     }
+
+    public void loadSource(List<Quadruple> input) {
+        adapter.loadSource(input);
+    }
+
+    public void clickItemLoans(int uid)
+    {
+        Intent intent = new Intent(this, ManageLoansActivity.class);
+        intent.putExtra("borrower_id",uid);
+        startActivityForResult(intent, 1);
+    }
+
+    public void clickItemReturns(int uid)
+    {
+        Intent intent = new Intent(this, ManageReturnsActivity.class);
+        intent.putExtra("borrower_id",uid);
+        startActivityForResult(intent, 1);
+    }
+
+    public void clickItem(int uid)
+    {
+        Intent intent = new Intent(this, BorrowerDetailsActivity.class);
+        intent.putExtra("borrower_id", uid);
+        startActivityForResult(intent, 1);
+    }
+
+    public void startAddNew()
+    {
+        Intent intent = new Intent(this, AddEditBorrowerActivity.class);
+        startActivityForResult(intent, 0);
+    }
+
+    public boolean shouldLoadLoansOnClick()
+    {
+        return this.getIntent().hasExtra("should_load_loans");
+    }
+
+    public boolean shouldLoadReturnsOnClick()
+    {
+        return this.getIntent().hasExtra("should_load_returns");
+    }
+
+    public void showToast(String value)
+    {
+        Toast.makeText(this, value, Toast.LENGTH_LONG).show();
+    }
 }
-
-

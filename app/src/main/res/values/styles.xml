@@ -1,17 +1,9 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="MainTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorPrimary</item>
-        <item name="colorButtonNormal">@color/colorGreenButton</item>
-    </style>
-
     <style name="SecondaryTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/topBar</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="colorButtonNormal">@color/colorPrimary</item>
         <!--make text selector black <item name="colorControlActivated">@color/colorPrimaryDark</item>-->
@@ -26,7 +18,7 @@
         <item name="android:textCursorDrawable">@drawable/custom_cursor</item>
     </style>
 
-    <style name="MainTheme.NoActionBar">
+    <style name="SecondaryTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

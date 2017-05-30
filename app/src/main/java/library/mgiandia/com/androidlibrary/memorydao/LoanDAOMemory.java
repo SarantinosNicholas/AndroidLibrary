@@ -11,13 +11,22 @@ import library.mgiandia.com.androidlibrary.domain.Loan;
  * Η υλοποίηση των αντικείμενων πρόσβασης δεδομένων (DAO)
  * για την κλάση {@link Loan} όπου η εξωτερική πηγή δεδομένων
  * είναι η μνήμη.
- * @author ndia
+ * @author Νίκος Διαμαντίδης
  *
  */
 public class LoanDAOMemory implements LoanDAO{
 
     protected static List<Loan> entities = new ArrayList<Loan>();
-    
+
+    public Loan find(int uid)
+    {
+        for(Loan loan : entities)
+            if(loan.getId() == uid)
+                return loan;
+
+        return null;
+    }
+
     public void delete(Loan entity) {
         entities.remove(entity);    
     }
@@ -56,7 +65,9 @@ public class LoanDAOMemory implements LoanDAO{
         
         return pending;
     }
-    
-    
-    
+
+    public int nextId()
+    {
+        return (entities.size() > 0 ? entities.get(entities.size()-1).getId()+1 : 1);
+    }
 }

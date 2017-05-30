@@ -55,6 +55,4 @@ public class LoanService {
         loanDao.save(loan);
         return loan.getDue();
     }
-
 }
-

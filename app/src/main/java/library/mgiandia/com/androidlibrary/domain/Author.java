@@ -17,20 +17,25 @@ public class Author {
     /**
      * Προκαθορισμένος κατασκευαστής.
      */
-    //public Author() { }
+    public Author() { }
 
     /**
      * Βοηθητικός κατασκευαστής.
+     * @param uid Ο μοναδικός κωδικός συγγραφέα.
      * @param firstName Το μικρό όνομα.
      * @param lastName Το επώνυμο.
      */
     public Author(int uid, String firstName, String lastName) {
-        this.uid = uid;
+         this.uid = uid;
          person.setFirstName(firstName);
          person.setLastName(lastName);
     }
 
-    public int getID() {
+    /**
+     * Επιστρέφει τον μοναδικό κωδικό του συγγραφέα.
+     * @return Ο μοναδικός κωδικός του συγγραφέα
+     */
+    public int getId() {
         return uid;
     }
 

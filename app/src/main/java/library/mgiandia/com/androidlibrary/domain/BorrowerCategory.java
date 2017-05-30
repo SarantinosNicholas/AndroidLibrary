@@ -12,6 +12,7 @@ import library.mgiandia.com.androidlibrary.util.SimpleCalendar;
 
 public class BorrowerCategory {
 
+    private int uid;
     private String description;
     private int maxLendingItems;
     private int maxLendingDays;
@@ -25,20 +26,29 @@ public class BorrowerCategory {
     /**
      * Βοηθητικός κατασκευαστής που αρχικοποιεί
      * τα βασικά στοιχεία της κατηγορίας δανειζομένου.
+     * @param uid Ο μοναδικός κωδικός
      * @param description Περιγραφή κατηγορίας
      * @param maxLendingDays Μέγιστος αριθμός ημερών δανεισμού
      * @param maxLendingItems Μέγιστος αριθμός αντιτύπων
      * προς (ταυτόχρονο) δανεισμό
      * @param dailyFine Ημερήσιο πρόστιμο καθυστέρησης
      */
-    public BorrowerCategory(String description, int maxLendingDays, int maxLendingItems, Money dailyFine)
+    public BorrowerCategory(int uid, String description, int maxLendingDays, int maxLendingItems, Money dailyFine)
     {
+        this.uid = uid;
         this.description = description;
         this.maxLendingDays = maxLendingDays;
         this.maxLendingItems = maxLendingItems;
         this.dailyFine = dailyFine;
     }
 
+    /**
+     * Επιστρέφει τον μοναδικό κωδικό της κατηγορίας δανειζομένου.
+     * @return Ο μοναδικός κωδικός της κατηγορίας δανειζομένου
+     */
+    public int getId() {
+        return uid;
+    }
 
     /**
      * Θέτει την περιγραφή της κατηγορίας δανειζομένου.

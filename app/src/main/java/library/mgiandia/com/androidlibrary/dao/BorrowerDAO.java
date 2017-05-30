@@ -3,7 +3,6 @@ package library.mgiandia.com.androidlibrary.dao;
 import java.util.List;
 
 import library.mgiandia.com.androidlibrary.domain.Borrower;
-import library.mgiandia.com.androidlibrary.domain.Loan;
 
 /**
  * Η διεπαφή DAO για την κλάση {@link Borrower}.
@@ -43,5 +42,9 @@ public interface BorrowerDAO {
      */
     List<Borrower> findAll();
 
-    int next_id();//returns the next id we should give to the next borrower who regsiters
+    /*
+     * Επιστρέφει τον επόμενο διαθέσιμο κωδικό που μπορεί να χρησιμοποιηθεί από έναν δανειζόμενο.
+     * @return Ο επόμενος διαθέσιμος κωδικός δανειζομένου.
+     */
+    int nextId();
 }

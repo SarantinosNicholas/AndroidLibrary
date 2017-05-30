@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="library.mgiandia.com.androidlibrary">
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/MainTheme">
+        android:theme="@style/SecondaryTheme"
+        android:supportsRtl="true">
         <activity
             android:name=".view.HomePage.HomePageActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:theme="@style/SecondaryTheme"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,14 +32,8 @@
             android:theme="@style/SecondaryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".view.Borrower.AddBorrower.AddEditBorrowerActivity"
+            android:name=".view.Borrower.AddEditBorrower.AddEditBorrowerActivity"
             android:label="@string/borrower_add"
-            android:screenOrientation="portrait"
-            android:theme="@style/SecondaryTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name=".view.Borrower.DisplayLoans.DisplayLoansActivity"
-            android:label="@string/display_loans"
             android:screenOrientation="portrait"
             android:theme="@style/SecondaryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
@@ -54,8 +50,8 @@
             android:theme="@style/SecondaryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".view.Author.AddAuthor.AddEditAuthorActivity"
-            android:label="@string/manage_authors"
+            android:name=".view.Author.AddEditAuthor.AddEditAuthorActivity"
+            android:label="@string/author_add"
             android:screenOrientation="portrait"
             android:theme="@style/SecondaryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
@@ -95,10 +91,29 @@
             android:screenOrientation="portrait"
             android:theme="@style/SecondaryTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".view.Book.ManageItems.ManageItemsActivity"
+        <activity
+            android:name=".view.Items.ManageItems.ManageItemsActivity"
             android:label=""
             android:screenOrientation="portrait"
             android:theme="@style/SecondaryTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".view.Returns.ManageReturns.ManageReturnsActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@style/SecondaryTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".view.Loans.ManageLoans.ManageLoansActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@style/SecondaryTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".view.Loans.AddLoan.AddLoansActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@style/SecondaryTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
     </application>
 </manifest>

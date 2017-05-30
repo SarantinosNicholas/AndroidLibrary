@@ -6,6 +6,13 @@ import java.util.List;
 import library.mgiandia.com.androidlibrary.dao.AuthorDAO;
 import library.mgiandia.com.androidlibrary.domain.Author;
 
+/**
+ * @author Νίκος Σαραντινός
+ *
+ * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
+ *
+ */
+
 public class AuthorDAOMemory implements AuthorDAO {
     protected static ArrayList<Author> authors = new ArrayList<Author>();
 
@@ -22,15 +29,15 @@ public class AuthorDAOMemory implements AuthorDAO {
     public Author find(int author_id)
     {
         for(Author author : authors)
-            if(author.getID() == author_id)
+            if(author.getId() == author_id)
                 return author;
 
         return null;
     }
 
     @Override
-    public int next_id()
+    public int nextId()
     {
-        return (authors.size() > 0 ? authors.get(authors.size()-1).getID()+1 : 1);//start from 1, not 0
+        return (authors.size() > 0 ? authors.get(authors.size()-1).getId()+1 : 1);
     }
 }

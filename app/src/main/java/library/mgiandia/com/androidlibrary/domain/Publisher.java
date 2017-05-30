@@ -26,11 +26,12 @@ public class Publisher {
     /**
      * Προκαθορισμένος κατασκευαστής.
      */
-    //public Publisher() { }
+    public Publisher() { }
 
     /**
      * Βοηθητικός κατασκευαστής που
      * αρχικοποιεί την κατάσταση ενός εκδοτικού οίκου.
+     * @param uid Ο μοναδικός κωδικός
      * @param name Όνομα εκδοτικού οίκου
      * @param address Ταχυδρομική διεύθυνση εκδοτικού οίκου
      * @param eMail Διεύθυνση ηλεκτρονικού ταχυδρομείου
@@ -46,7 +47,11 @@ public class Publisher {
         this.telephone = telephone;
     }
 
-    public int getID() {
+    /**
+     * Επιστρέφει τον μοναδικό κωδικό του εκδοτικού οίκου.
+     * @return Ο μοναδικός κωδικός του εκδοτικού οίκου
+     */
+    public int getId() {
         return uid;
     }
 

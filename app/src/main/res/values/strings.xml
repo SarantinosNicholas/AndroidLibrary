@@ -1,16 +1,25 @@
 <resources>
     <string name="app_name">Βιβλιοθήκη Ο.Π.Α.</string>
     <string name="welcome_message">Καλωσορίσατε στη Βιβλιοθήκη μας!</string>
+    <string name="ok">OK</string>
+    <string name="yes_delete">ΟΚ, ΔΙΑΓΡΑΦΗ</string>
+    <string name="cancel">ΑΚΥΡΩΣΗ</string>
+    <string name="do_loan_event">Πραγματοποίηση Δανεισμού</string>
 
     <string name="add_new_item">Προσθήκη</string>
 
     <string name="borrower_add">Εγγραφή Δανειζομένου</string>
     <string name="borrower_details">Πληροφορίες Δανειζομένου</string>
 
+    <string name="borrower">Δανειζόμενος</string>
+    <string name="book">Βιβλίο</string>
     <string name="manage_borrowers">Δανειζομένοι</string>
     <string name="manage_books">Βιβλία</string>
     <string name="manage_publishers">Εκδοτικοί Οίκοι</string>
     <string name="manage_authors">Συγγραφείς</string>
+    <string name="manage_items">Αντίτυπα</string>
+    <string name="manage_loans">Δάνεια</string>
+    <string name="manage_returns">Επιστροφές</string>
 
     <string name="first_name">Όνομα</string>
     <string name="last_name">Επώνυμο</string>

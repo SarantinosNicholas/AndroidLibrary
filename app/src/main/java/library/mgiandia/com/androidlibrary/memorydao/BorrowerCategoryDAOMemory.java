@@ -1,41 +1,48 @@
 package library.mgiandia.com.androidlibrary.memorydao;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import library.mgiandia.com.androidlibrary.dao.BorrowerCategoryDAO;
 import library.mgiandia.com.androidlibrary.domain.BorrowerCategory;
 
-public class BorrowerCategoryDAOMemory implements BorrowerCategoryDAO {
-    //keep the items in the order they were put to map AND allow searching by name
-    protected static LinkedHashMap<String, BorrowerCategory> data = new LinkedHashMap<String, BorrowerCategory>();
+/**
+ * @author Νίκος Διαμαντίδης
+ */
 
-    public void delete(BorrowerCategory entity) {
-        data.remove(entity.getDescription());
-    }
+public class BorrowerCategoryDAOMemory implements BorrowerCategoryDAO
+{
+    protected static List<BorrowerCategory> entities = new ArrayList<>();
 
-    public void save(BorrowerCategory entity) {
-        if (!data.containsKey(entity.getDescription()))
-            data.put(entity.getDescription(), entity);
-    }
-
-    public BorrowerCategory find(String name)
+    public void delete(BorrowerCategory entity)
     {
-        return data.get(name);
+        entities.remove(entity.getDescription());
     }
 
-    public List<String> findAllNames()
+    public void save(BorrowerCategory entity)
     {
-        List<String> result = new ArrayList<String>();
-        result.addAll(data.keySet());
-        return result;
+        if (! entities.contains(entity))
+            entities.add(entity);
+    }
+
+    public BorrowerCategory find(int uid)
+    {
+        for(BorrowerCategory borrowerCategory : entities) {
+            if (borrowerCategory.getId() == uid ) {
+                return borrowerCategory;
+            }
+        }
+
+        return null;
     }
 
     public List<BorrowerCategory> findAll()
     {
-        List<BorrowerCategory> result = new ArrayList<BorrowerCategory>();
-        result.addAll(data.values());
-        return result;
+        return new ArrayList(entities);
+    }
+
+    public int nextId()
+    {
+        return (entities.size() > 0 ? entities.get(entities.size()-1).getId()+1 : 1);
     }
 }

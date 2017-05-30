@@ -7,72 +7,121 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import library.mgiandia.com.androidlibrary.R;
-import library.mgiandia.com.androidlibrary.domain.Borrower;
 import library.mgiandia.com.androidlibrary.memorydao.BorrowerDAOMemory;
-import library.mgiandia.com.androidlibrary.view.Borrower.AddBorrower.AddEditBorrowerActivity;
-import library.mgiandia.com.androidlibrary.view.Borrower.DisplayLoans.DisplayLoansActivity;
+import library.mgiandia.com.androidlibrary.memorydao.LoanDAOMemory;
+import library.mgiandia.com.androidlibrary.view.Borrower.AddEditBorrower.AddEditBorrowerActivity;
 
-public class BorrowerDetailsActivity extends AppCompatActivity
+/**
+ * @author Νίκος Σαραντινός
+ *
+ * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
+ *
+ */
+
+public class BorrowerDetailsActivity extends AppCompatActivity implements BorrowerDetailsView
 {
-    private void delete_user_button_init(final Borrower cur)
-    {
-        final Button button = (Button) findViewById(R.id.delete_user_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                new AlertDialog.Builder(BorrowerDetailsActivity.this)
-                        .setCancelable(true)
-                        .setTitle("Διαγραφή Δανειζομένου;")
-                        .setMessage("Όλα τα βιβλία που δεν έχουν επιστραφεί θα σημειωθούν ως χαμένα.")
-                        .setPositiveButton("ΟΚ, ΔΙΑΓΡΑΦΗ", new DialogInterface.OnClickListener()
-                        {
-                            public void onClick(DialogInterface dialog, int which)
-                            {
-                                cur.mark_all_open_loans_as_lost();
-                                new BorrowerDAOMemory().delete(cur);
+    BorrowerDetailsPresenter presenter;
 
-                                Intent retData = new Intent();
-                                retData.putExtra("message_to_toast", "Επιτυχής Διαγραφή του "+cur.getLastName()+" "+ cur.getFirstName()+"!");
-                                setResult(RESULT_OK, retData);
-                                finish();//kill this activity
-                            }
-                        })
-                        .setNegativeButton("ΑΚΥΡΩΣΗ", null).create().show();
-            }
-        });
+    public void startEdit(int borrowerID)
+    {
+        Intent intent = new Intent(this, AddEditBorrowerActivity.class);
+        intent.putExtra("borrower_id", borrowerID);
+        startActivityForResult(intent, 2);
     }
 
-    private void edit_user_button_init(final Borrower cur)
+    public void startDelete(String title, String message)
     {
-        ((Button) findViewById(R.id.edit_user_button)).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent intent = new Intent(view.getContext(), AddEditBorrowerActivity.class);
-                intent.putExtra("borrower_id", cur.getBorrowerNo());
-                startActivityForResult(intent, 2/*request code 0, can be any integer*/);
-            }
-        });
+        new AlertDialog.Builder(BorrowerDetailsActivity.this).setCancelable(true).setTitle(title).setMessage(message)
+                .setPositiveButton(R.string.yes_delete, new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        presenter.onDoDeleteAndFinish();
+                    }
+                })
+                .setNegativeButton(R.string.cancel, null).create().show();
     }
 
-    private void display_loans_button(final Borrower cur)
+    public void doDeleteAndFinish(String message)
     {
-        ((Button) findViewById(R.id.display_loans_button)).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent intent = new Intent(view.getContext(), DisplayLoansActivity.class);
-                intent.putExtra("borrower_id", cur.getBorrowerNo());
-                startActivity(intent);//we don't care about the result here
-            }
-        });
+        Intent intent = new Intent();
+        intent.putExtra("message_to_toast", message);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    public int getAttachedBorrowerID()
+    {
+        return this.getIntent().hasExtra("borrower_id") ? this.getIntent().getExtras().getInt("borrower_id") : null;
+    }
+
+    public void setID(String value)
+    {
+        ((TextView)findViewById(R.id.text_user_id)).setText(value);
+    }
+
+    public void setFirstName(String value)
+    {
+        ((TextView)findViewById(R.id.text_first_name)).setText(value);
+    }
+
+    public void setLastName(String value)
+    {
+        ((TextView)findViewById(R.id.text_last_name)).setText(value);
+    }
+
+    public void setCategory(String value)
+    {
+        ((TextView)findViewById(R.id.text_category)).setText(value);
+    }
+
+    public void setPhone(String value)
+    {
+        ((TextView)findViewById(R.id.text_telephone)).setText(value);
+    }
+
+    public void setEmail(String value)
+    {
+        ((TextView)findViewById(R.id.text_email)).setText(value);
+    }
+
+    public void setCountry(String value)
+    {
+        ((TextView)findViewById(R.id.text_country)).setText(value);
+    }
+
+    public void setAddressCity(String value)
+    {
+        ((TextView)findViewById(R.id.text_city)).setText(value);
+    }
+
+    public void setAddressStreet(String value)
+    {
+        ((TextView)findViewById(R.id.text_street)).setText(value);
+    }
+
+    public void setAddressNumber(String value)
+    {
+        ((TextView)findViewById(R.id.text_number)).setText(value);
+    }
+
+    public void setAddressPostalCode(String value)
+    {
+        ((TextView)findViewById(R.id.text_zip)).setText(value);
+    }
+
+    public void setPageName(String value)
+    {
+        getSupportActionBar().setTitle(value);
+    }
+
+    public void showToast(String value)
+    {
+        Toast.makeText(this, value, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -80,53 +129,32 @@ public class BorrowerDetailsActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_borrower_details);
+        presenter = new BorrowerDetailsPresenter(this, new BorrowerDAOMemory(), new LoanDAOMemory());
 
-        int borrower_id = this.getIntent().getExtras().getInt("borrower_id");
-        getSupportActionBar().setTitle("Δανειζόμενος #"+borrower_id);
+        findViewById(R.id.edit_user_button).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                presenter.onStartEditButtonClick();
+            }
+        });
 
-        Borrower cur = new BorrowerDAOMemory().find(borrower_id);
-        //nothing will be null, since we have absolute control over data entry
-
-        ((TextView)findViewById(R.id.text_first_name)).setText(cur.getFirstName());
-        ((TextView)findViewById(R.id.text_last_name)).setText(cur.getLastName());
-        ((TextView)findViewById(R.id.text_user_id)).setText("#"+cur.getBorrowerNo());
-        ((TextView)findViewById(R.id.text_category)).setText(cur.getCategory().getDescription());
-        ((TextView)findViewById(R.id.text_telephone)).setText(cur.getTelephone().getTelephoneNumber());
-        ((TextView)findViewById(R.id.text_email)).setText(cur.getEmail().getAddress());
-
-        ((TextView)findViewById(R.id.text_country)).setText(cur.getAddress().getCountry());
-        ((TextView)findViewById(R.id.text_city)).setText(cur.getAddress().getCity());
-        ((TextView)findViewById(R.id.text_street)).setText(cur.getAddress().getStreet());
-        ((TextView)findViewById(R.id.text_number)).setText(cur.getAddress().getNumber());
-        ((TextView)findViewById(R.id.text_zip)).setText(cur.getAddress().getZipCode().getCode());
-
-        int loaned_loans = cur.get_ongoing_loans().size();
-        int returned_loans = cur.get_returned_loans().size();
-        int lost_loans = cur.get_lost_loans().size();
-        String one_book = " Βιβλίο";
-        String many_books = " Βιβλία";
-
-        ((TextView)findViewById(R.id.books_loaned_text)).setText(loaned_loans+""+(loaned_loans == 1 ? one_book : many_books));
-        ((TextView)findViewById(R.id.books_returned_text)).setText(returned_loans+""+(returned_loans == 1 ? one_book : many_books));
-        ((TextView)findViewById(R.id.books_lost_text)).setText(lost_loans+""+(lost_loans == 1 ? one_book : many_books));
-
-        delete_user_button_init(cur);
-        edit_user_button_init(cur);
-        display_loans_button(cur);
+        findViewById(R.id.delete_user_button).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                presenter.onStartDeleteButtonClick();
+            }
+        });
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {//we intentionally don't make this code more compact, so we get what's going on
+    {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 2)//if the edit user activity returned
+        if(requestCode == 2 && resultCode == Activity.RESULT_OK)
         {
-            if(resultCode == Activity.RESULT_OK)//and an actual edit happened
-            {
-                recreate();//recreate this activity so the changes are going to be visible, because the user was edited
-                Toast.makeText(BorrowerDetailsActivity.this, data.getStringExtra("message_to_toast"), Toast.LENGTH_LONG).show();
-            }
+            recreate();
+            presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
         else if(requestCode == 100)
             recreate();

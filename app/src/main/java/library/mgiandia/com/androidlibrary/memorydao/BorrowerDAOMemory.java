@@ -9,8 +9,14 @@ import library.mgiandia.com.androidlibrary.domain.Borrower;
 import library.mgiandia.com.androidlibrary.domain.ItemState;
 import library.mgiandia.com.androidlibrary.domain.Loan;
 
-public class BorrowerDAOMemory implements BorrowerDAO {
+/**
+ * @author Νίκος Σαραντινός
+ *
+ * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
+ *
+ */
 
+public class BorrowerDAOMemory implements BorrowerDAO {
 
     protected static List<Borrower> entities = new ArrayList<Borrower>();
     
@@ -35,11 +41,12 @@ public class BorrowerDAOMemory implements BorrowerDAO {
                 return borrower;
             }
         }
+
         return null;
     }
 
-    public int next_id()
+    public int nextId()
     {
-        return (entities.size() > 0 ? entities.get(entities.size()-1).getBorrowerNo()+1 : 1);//start from 1, not 0
+        return (entities.size() > 0 ? entities.get(entities.size()-1).getBorrowerNo()+1 : 1);
     }
 }

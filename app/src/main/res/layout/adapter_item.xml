@@ -33,7 +33,7 @@
         app:layout_constraintVertical_bias="0.514" />
 
     <TextView
-        android:textColor="@color/colorGray"
+        android:textColor="@color/colorSemiWhite"
         android:textSize="12dp"
         android:id="@+id/item_details"
         android:layout_width="wrap_content"

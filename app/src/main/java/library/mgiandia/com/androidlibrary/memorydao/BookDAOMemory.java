@@ -6,6 +6,13 @@ import java.util.List;
 import library.mgiandia.com.androidlibrary.dao.BookDAO;
 import library.mgiandia.com.androidlibrary.domain.Book;
 
+/**
+ * @author Νίκος Σαραντινός
+ *
+ * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
+ *
+ */
+
 public class BookDAOMemory implements BookDAO {
     protected static ArrayList<Book> books = new ArrayList<Book>();
 
@@ -22,15 +29,15 @@ public class BookDAOMemory implements BookDAO {
     public Book find(int uid)
     {
         for(Book now : books)
-            if(now.getID() == uid)
+            if(now.getId() == uid)
                 return now;
 
         return null;
     }
 
     @Override
-    public int next_id()
+    public int nextId()
     {
-        return (books.size() > 0 ? books.get(books.size()-1).getID()+1 : 1);//start from 1, not 0
+        return (books.size() > 0 ? books.get(books.size()-1).getId()+1 : 1);
     }
 }

@@ -1,5 +1,6 @@
 package library.mgiandia.com.androidlibrary.domain;
 
+import library.mgiandia.com.androidlibrary.memorydao.LoanDAOMemory;
 import library.mgiandia.com.androidlibrary.util.LibraryException;
 import library.mgiandia.com.androidlibrary.util.SystemDate;
 
@@ -121,7 +122,7 @@ public class Item {
             return null;
         }
 
-        Loan loan = new Loan();
+        Loan loan = new Loan(new LoanDAOMemory().nextId());
         loan.setItem(this);
         loan.setBorrower(borrower);
         loan.setLoanDate(SystemDate.now());

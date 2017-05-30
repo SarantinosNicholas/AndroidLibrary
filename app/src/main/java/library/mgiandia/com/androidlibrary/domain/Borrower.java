@@ -47,8 +47,9 @@ public class Borrower  {
     public Borrower(int borrowerNo, String firstName, String lastName, Address address, EmailAddress eMail, TelephoneNumber telephone, BorrowerCategory category)
     {
         this.borrowerNo = borrowerNo;
-        this.person = new Person(firstName, lastName);
-        this.address = address;
+        this.person.setFirstName(firstName);
+        this.person.setLastName(lastName);
+        this.address = address == null ? null : new Address(address);
         this.eMail = eMail;
         this.telephone = telephone;
         this.category = category;
@@ -191,54 +192,6 @@ public class Borrower  {
     public Set<Loan> getLoans() {
         return new HashSet<Loan>(loans);
     }
-
-
-
-
-    public List<Loan> get_lost_loans()//TODO, work on the loan model
-    {
-        List<Loan> ret = new ArrayList<Loan>();
-
-        for(Loan loan : loans)
-            if(loan.getItem().getState() == ItemState.LOST)
-                ret.add(loan);//shallow copy here
-
-        return ret;
-    }
-
-    public List<Loan> get_returned_loans()//TODO, work on the loan model
-    {
-        List<Loan> ret = new ArrayList<Loan>();
-
-        for(Loan loan : loans)
-            if(!loan.isPending())
-                ret.add(loan);//shallow copy here
-
-        return ret;
-    }
-
-    public List<Loan> get_ongoing_loans()//TODO, work on the loan model
-    {
-        List<Loan> ret = new ArrayList<Loan>();
-
-        for(Loan loan : loans)
-            if(loan.isPending())
-                ret.add(loan);//shallow copy here
-
-        return ret;
-    }
-
-    public void mark_all_open_loans_as_lost()//TODO, work on the loan model
-    {
-        for(Loan loan : loans)
-        {
-            if(loan.isPending())
-                loan.getItem().setState(ItemState.LOST);
-        }
-    }
-
-
-
 
     /**
      * Μη ενθυλακωμένη συλλογή των δανεισμών.

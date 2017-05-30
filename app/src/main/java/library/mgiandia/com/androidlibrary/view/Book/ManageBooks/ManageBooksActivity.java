@@ -1,84 +1,76 @@
 package library.mgiandia.com.androidlibrary.view.Book.ManageBooks;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import library.mgiandia.com.androidlibrary.R;
-import library.mgiandia.com.androidlibrary.domain.Book;
+import library.mgiandia.com.androidlibrary.memorydao.AuthorDAOMemory;
+import library.mgiandia.com.androidlibrary.memorydao.BookDAOMemory;
+import library.mgiandia.com.androidlibrary.memorydao.PublisherDAOMemory;
+import library.mgiandia.com.androidlibrary.util.Quadruple;
 import library.mgiandia.com.androidlibrary.view.Book.AddEditBook.AddEditBookActivity;
 import library.mgiandia.com.androidlibrary.view.Book.BookDetails.BookDetailsActivity;
+import library.mgiandia.com.androidlibrary.view.Items.ManageItems.ManageItemsActivity;
+import library.mgiandia.com.androidlibrary.view.Util.AdvancedListAdapter;
 
-public class ManageBooksActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+/**
+ * @author Νίκος Σαραντινός
+ *
+ * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
+ *
+ */
 
-    private ListView item_list_view;
-    private SearchView search_list_view;
-    private BookAdapter adapter;
+public class ManageBooksActivity extends AppCompatActivity implements ManageBooksView, SearchView.OnQueryTextListener
+{
+    ManageBooksPresenter presenter;
+
+    private ListView itemListView;
+    private SearchView searchListView;
+    private AdvancedListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        String var_name = "";
-        int var_value = 0;
-
-        if(this.getIntent().hasExtra("author_id"))
-        {
-            var_name = "author_id";
-            var_value = this.getIntent().getExtras().getInt("author_id");
-            getSupportActionBar().setTitle("Βιβλία Συγγραφέα #" + var_value);
-        }
-        else if(this.getIntent().hasExtra("publisher_id"))
-        {
-            var_name = "publisher_id";
-            var_value = this.getIntent().getExtras().getInt("publisher_id");
-            getSupportActionBar().setTitle("Βιβλία Εκδοτικού Οίκου #" + var_value);
-        }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manage_items);
 
-        item_list_view = (ListView) findViewById(R.id.item_list_view);
+        adapter = new AdvancedListAdapter(this);
 
-        adapter = new BookAdapter(this, var_name, var_value);
-        item_list_view.setAdapter(adapter);
-        item_list_view.setTextFilterEnabled(true);
+        itemListView = (ListView) findViewById(R.id.item_list_view);
+        itemListView.setAdapter(adapter);
+        itemListView.setTextFilterEnabled(true);
 
-        final Context new_context = this;
-        item_list_view.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                Intent intent = new Intent(new_context, BookDetailsActivity.class);
-                intent.putExtra("book_id", ((Book)parent.getItemAtPosition(position)).getID());
-                startActivityForResult(intent, 1/*request code 1, can be any integer*/);
-            }
-        });
+        searchListView = (SearchView) findViewById(R.id.items_list_search_view);
+        searchListView.setIconifiedByDefault(false);
+        searchListView.setOnQueryTextListener(this);
 
-        //search
-        search_list_view = (SearchView) findViewById(R.id.items_list_search_view);
+        presenter = new ManageBooksPresenter(this, new BookDAOMemory(), new AuthorDAOMemory(), new PublisherDAOMemory());
 
-        search_list_view.setIconifiedByDefault(false);
-        search_list_view.setOnQueryTextListener(this);
-        //done
-
-        final Button add_new_button = (Button) findViewById(R.id.item_add_new);
-        add_new_button.setOnClickListener(new View.OnClickListener()
+        findViewById(R.id.item_add_new).setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(view.getContext(), AddEditBookActivity.class);
-                startActivityForResult(intent, 0/*request code 0, can be any integer*/);
+                presenter.onStartAddNew();
+            }
+        });
+
+        itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                presenter.onClickItem(((Quadruple)parent.getItemAtPosition(position)).getUID());
             }
         });
     }
@@ -86,9 +78,9 @@ public class ManageBooksActivity extends AppCompatActivity implements SearchView
     public boolean onQueryTextChange(String text)
     {
         if (TextUtils.isEmpty(text))
-            item_list_view.clearTextFilter();
+            itemListView.clearTextFilter();
         else
-            item_list_view.setFilterText(text);
+            itemListView.setFilterText(text);
 
         return true;
     }
@@ -100,31 +92,77 @@ public class ManageBooksActivity extends AppCompatActivity implements SearchView
 
     private void clear_search_bar()
     {
-        search_list_view.setQuery("", false);//clear the search view if there was text there
-        search_list_view.clearFocus();
-
-        adapter.reload();//reload the list
+        searchListView.setQuery("", false);
+        searchListView.clearFocus();
+        presenter.onLoadSource();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {//we intentionally don't make this code more compact, so we get what's going on
+    {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 0)//if "add new user activity finished"
+        if(requestCode == 0 && resultCode == Activity.RESULT_OK)
         {
-            if(resultCode == Activity.RESULT_OK)//and a new user was actually added. this won't fire if the back button was just pressed
-            {
-                clear_search_bar();
-                Toast.makeText(ManageBooksActivity.this, data.getStringExtra("message_to_toast"), Toast.LENGTH_LONG).show();
-            }
+            clear_search_bar();
+            presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
-        else if(requestCode == 1)//if "delete user (found on user details) activity finished"
+        else if(requestCode == 1)
         {
-            clear_search_bar();//when this activity exits always refresh the list because it's possible a user was editted or deleted
+            clear_search_bar();
 
-            if(resultCode == Activity.RESULT_OK)//and the user was actually deleted
-                Toast.makeText(ManageBooksActivity.this, data.getStringExtra("message_to_toast"), Toast.LENGTH_LONG).show();
+            if(resultCode == Activity.RESULT_OK)
+                presenter.onShowToast(data.getStringExtra("message_to_toast"));
         }
+    }
+
+    public void loadSource(List<Quadruple> input)
+    {
+        adapter.loadSource(input);
+    }
+
+    public void clickItem(int uid)
+    {
+        Intent intent = new Intent(this, BookDetailsActivity.class);
+        intent.putExtra("book_id", uid);
+        startActivityForResult(intent, 1);
+    }
+
+    public void clickItemList(int uid)
+    {
+        Intent intent = new Intent(this, ManageItemsActivity.class);
+        intent.putExtra("book_id", uid);
+        startActivityForResult(intent, 1);
+    }
+
+    public void startAddNew()
+    {
+        Intent intent = new Intent(this, AddEditBookActivity.class);
+        startActivityForResult(intent, 0);
+    }
+
+    public void showToast(String value)
+    {
+        Toast.makeText(this, value, Toast.LENGTH_LONG).show();
+    }
+
+    public void setPageName(String value)
+    {
+        getSupportActionBar().setTitle(value);
+    }
+
+    public Integer getAttachedAuthorID()
+    {
+        return this.getIntent().hasExtra("author_id") ? this.getIntent().getExtras().getInt("author_id") : null;
+    }
+
+    public Integer getAttachedPublisherID()
+    {
+        return this.getIntent().hasExtra("publisher_id") ? this.getIntent().getExtras().getInt("publisher_id") : null;
+    }
+
+    public boolean shouldLoadItemsOnClick()
+    {
+        return this.getIntent().hasExtra("should_load_items");
     }
 }

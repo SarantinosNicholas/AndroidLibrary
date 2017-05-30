@@ -3,6 +3,7 @@ package library.mgiandia.com.androidlibrary.dao;
 
 import java.util.List;
 
+import library.mgiandia.com.androidlibrary.domain.Item;
 import library.mgiandia.com.androidlibrary.domain.Loan;
 
 /**
@@ -11,6 +12,12 @@ import library.mgiandia.com.androidlibrary.domain.Loan;
  *
  */
 public interface LoanDAO {
+    /**
+     * Επιστρέφει το δανεισμό για κάποιο αριθμό εισαγωγής.
+     * @param uid Ο αριθμός εισαγωγής του δανεισμού
+     * @return Ο δανεισμός
+     */
+    Loan find(int uid);
 
     /**
      * Επιστρέφει το δανεισμό σε εκκρεμότητα για κάποιο αριθμό
@@ -51,4 +58,9 @@ public interface LoanDAO {
      */
     List<Loan> findAll();
 
+    /*
+     * Επιστρέφει τον επόμενο διαθέσιμο κωδικό που μπορεί να χρησιμοποιηθεί από ένα δανεισμό.
+     * @return Ο επόμενος διαθέσιμος κωδικός δανεισμού.
+     */
+    int nextId();
 }

@@ -38,4 +38,8 @@ public class ItemDAOMemory implements ItemDAO {
         return null;
     }
 
+    public int nextId()
+    {
+        return (entities.size() > 0 ? entities.get(entities.size()-1).getItemNumber()+1 : 1);
+    }
 }

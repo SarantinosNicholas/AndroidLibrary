@@ -14,6 +14,7 @@ import library.mgiandia.com.androidlibrary.util.SystemDate;
  */
 public class Loan {
 
+    private int uid;
     private SimpleCalendar loanDate = SystemDate.now();
     private SimpleCalendar returnDate;
     private Borrower borrower;
@@ -26,18 +27,35 @@ public class Loan {
      */
     Loan() { }
 
+    /*
+     * Κατασκευαστής της κλάσης
+     */
+    Loan(int uid)
+    {
+        this.uid = uid;
+    }
+
     /**
      * Βοηθητικός κατασκευαστής που αρχικοποιεί έναν δανεισμό.
+     * @param uid Ο μοναδικός κωδικός
      * @param borrower Δανειζόμενος
      * @param item Αντίτυπο
      * @param loanDate Ημερομηνία δανεισμού
      */
-    Loan(Borrower borrower, Item item, SimpleCalendar loanDate) {
+    Loan(int uid, Borrower borrower, Item item, SimpleCalendar loanDate) {
+        this.uid = uid;
         this.borrower = borrower;
         this.item = item;
         this.loanDate = loanDate;
     }
 
+    /**
+     * Επιστρέφει τον μοναδικό κωδικό του δανεισμού.
+     * @return Ο μοναδικός κωδικός του δανεισμού
+     */
+    public int getId() {
+        return uid;
+    }
 
     /**
      * Θέτει την ημερομηνία δανεισμού.
