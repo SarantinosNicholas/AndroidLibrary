@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import library.mgiandia.com.androidlibrary.R;
-import library.mgiandia.com.androidlibrary.memorydao.InitializeData;
+import library.mgiandia.com.androidlibrary.memorydao.MemoryInitializer;
 import library.mgiandia.com.androidlibrary.view.Author.ManageAuthors.ManageAuthorsActivity;
 import library.mgiandia.com.androidlibrary.view.Book.ManageBooks.ManageBooksActivity;
 import library.mgiandia.com.androidlibrary.view.Borrower.ManageBorrowers.ManageBorrowersActivity;
@@ -21,6 +21,8 @@ import library.mgiandia.com.androidlibrary.view.Publisher.ManagePublishers.Manag
 
 public class HomePageActivity extends AppCompatActivity implements HomePageView
 {
+    private static boolean initialized = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +72,11 @@ public class HomePageActivity extends AppCompatActivity implements HomePageView
             }
         });
 
-        InitializeData.init();
+        if(!initialized)
+        {
+            new MemoryInitializer().prepareData();
+            initialized = true;
+        }
     }
 
     public void manageBorrowers()

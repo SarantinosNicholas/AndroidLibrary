@@ -80,7 +80,7 @@ public class AddLoansActivity extends AppCompatActivity implements AddLoansView
         findViewById(R.id.complete_registration_button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                presenter.onSaveAuthor();
+                presenter.onSaveLoan();
             }
         });
     }

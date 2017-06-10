@@ -36,12 +36,13 @@ public class LoanService {
     /**
      * Πραγματοποιεί το δανεισμό.
      * @param itemNo Ο αριθμός εισαγωγής του αντιτύπου
+     * @param uid Ο κωδικός του δανείου
      * @return Την προθεσμία επιστροφής.
      * Επιστρέφει {@code null} εάν ο δανειζόμενος δεν δικαιούται
      * να δανειστεί αντίτυπο.
      * @throws LibraryException Εάν δεν υπάρχει δανειζόμενος
      */
-    public SimpleCalendar borrow(int itemNo) {
+    public SimpleCalendar borrow(int itemNo, int uid) {
         if (borrower == null) {
             throw new LibraryException();
         }
@@ -50,7 +51,7 @@ public class LoanService {
         }
         ItemDAO itemDao = new ItemDAOMemory();
         Item item = itemDao.find(itemNo);
-        Loan loan = item.borrow(borrower);
+        Loan loan = item.borrow(borrower, uid);
         LoanDAO loanDao = new LoanDAOMemory();
         loanDao.save(loan);
         return loan.getDue();

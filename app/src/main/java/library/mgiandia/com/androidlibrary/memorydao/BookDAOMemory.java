@@ -14,21 +14,25 @@ import library.mgiandia.com.androidlibrary.domain.Book;
  */
 
 public class BookDAOMemory implements BookDAO {
-    protected static ArrayList<Book> books = new ArrayList<Book>();
+    protected static ArrayList<Book> entities = new ArrayList<Book>();
+
+    public void delete(Book entity) {
+        entities.remove(entity);
+    }
 
     public List<Book> findAll() {
         ArrayList<Book> result = new ArrayList<Book>();
-        result.addAll(books);
+        result.addAll(entities);
         return result;
     }
 
     public void save(Book book) {
-        books.add(book);
+        entities.add(book);
     }
 
     public Book find(int uid)
     {
-        for(Book now : books)
+        for(Book now : entities)
             if(now.getId() == uid)
                 return now;
 
@@ -38,6 +42,6 @@ public class BookDAOMemory implements BookDAO {
     @Override
     public int nextId()
     {
-        return (books.size() > 0 ? books.get(books.size()-1).getId()+1 : 1);
+        return (entities.size() > 0 ? entities.get(entities.size()-1).getId()+1 : 1);
     }
 }

@@ -15,6 +15,7 @@ import java.util.List;
 import library.mgiandia.com.androidlibrary.R;
 import library.mgiandia.com.androidlibrary.memorydao.BorrowerCategoryDAOMemory;
 import library.mgiandia.com.androidlibrary.memorydao.BorrowerDAOMemory;
+import library.mgiandia.com.androidlibrary.memorydao.CountryDAOMemory;
 
 /**
  * @author Νίκος Σαραντινός
@@ -171,7 +172,7 @@ public class AddEditBorrowerActivity extends AppCompatActivity implements AddEdi
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_borrower);
-        final AddEditBorrowerPresenter presenter = new AddEditBorrowerPresenter(this, new BorrowerDAOMemory(), new BorrowerCategoryDAOMemory(), Arrays.asList(getResources().getStringArray(R.array.country_names)));
+        final AddEditBorrowerPresenter presenter = new AddEditBorrowerPresenter(this, new BorrowerDAOMemory(), new BorrowerCategoryDAOMemory(), new CountryDAOMemory().getCountries());
 
         findViewById(R.id.complete_registration_button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

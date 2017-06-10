@@ -14,21 +14,25 @@ import library.mgiandia.com.androidlibrary.domain.Publisher;
  */
 
 public class PublisherDAOMemory implements PublisherDAO {
-    protected static ArrayList<Publisher> publishers = new ArrayList<Publisher>();
+    protected static ArrayList<Publisher> entities = new ArrayList<Publisher>();
 
     public List<Publisher> findAll() {
         ArrayList<Publisher> result = new ArrayList<Publisher>();
-        result.addAll(publishers);
+        result.addAll(entities);
         return result;
     }
 
+    public void delete(Publisher entity) {
+        entities.remove(entity);
+    }
+
     public void save(Publisher entity) {
-        publishers.add(entity);
+        entities.add(entity);
     }
 
     public Publisher find(int publisher_id)
     {
-        for(Publisher publisher : publishers)
+        for(Publisher publisher : entities)
             if(publisher.getId() == publisher_id)
                 return publisher;
 
@@ -38,6 +42,6 @@ public class PublisherDAOMemory implements PublisherDAO {
     @Override
     public int nextId()
     {
-        return (publishers.size() > 0 ? publishers.get(publishers.size()-1).getId()+1 : 1);
+        return (entities.size() > 0 ? entities.get(entities.size()-1).getId()+1 : 1);
     }
 }

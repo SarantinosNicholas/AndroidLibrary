@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import library.mgiandia.com.androidlibrary.R;
+import library.mgiandia.com.androidlibrary.memorydao.CountryDAOMemory;
 import library.mgiandia.com.androidlibrary.memorydao.PublisherDAOMemory;
 
 /**
@@ -143,7 +144,7 @@ public class AddEditPublisherActivity extends AppCompatActivity implements AddEd
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_publisher);
-        final AddEditPublisherPresenter presenter = new AddEditPublisherPresenter(this, new PublisherDAOMemory(), Arrays.asList(getResources().getStringArray(R.array.country_names)));
+        final AddEditPublisherPresenter presenter = new AddEditPublisherPresenter(this, new PublisherDAOMemory(), new CountryDAOMemory().getCountries());
 
         findViewById(R.id.complete_registration_button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

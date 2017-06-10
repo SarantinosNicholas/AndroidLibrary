@@ -16,7 +16,7 @@ public class BorrowerCategoryDAOMemory implements BorrowerCategoryDAO
 
     public void delete(BorrowerCategory entity)
     {
-        entities.remove(entity.getDescription());
+        entities.remove(entity);
     }
 
     public void save(BorrowerCategory entity)

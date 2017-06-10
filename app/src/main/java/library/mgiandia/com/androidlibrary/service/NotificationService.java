@@ -57,15 +57,15 @@ public class NotificationService {
     private void sendEmail(Borrower borrower,
             String subject, String message) {
         EmailAddress eMail = borrower.getEmail();
-        if (eMail == null || !eMail.isValid()) {
-            return;
+
+        if (eMail != null && eMail.isValid())
+        {
+            EmailMessage emailMessage = new EmailMessage();
+            emailMessage.setTo(eMail);
+            emailMessage.setSubject(subject);
+            emailMessage.setBody(message);
+            provider.sendEmail(emailMessage);
         }
-        
-        EmailMessage emailMessage = new EmailMessage();
-        emailMessage.setTo(eMail);
-        emailMessage.setSubject(subject);
-        emailMessage.setBody(message);
-        provider.sendEmail(emailMessage);
     }
     
     private String composeMessage(Book book, long overdue) {

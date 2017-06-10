@@ -241,10 +241,6 @@ public class Loan {
             return 0;
         }
 
-        if (getDue() == null) {
-            return 0;
-        }
-
         long overdue = getDue().durationInDays(returnDate);
         return overdue > 0 ? overdue : 0 ;
     }

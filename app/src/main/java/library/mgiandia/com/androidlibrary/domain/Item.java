@@ -107,9 +107,10 @@ public class Item {
      * αντιτύπου δεν είναι {@code AVAILABLE}
      * Η κατάσταση του αντιτύπου γίνεται {@code LOANED}
      * @param borrower Ο δανειζόμενος
+     * @param uid Ο κωδικός του δανείου
      * @return Το αντικείμενο του δανεισμού.
      */
-    public Loan borrow(Borrower borrower) {
+    public Loan borrow(Borrower borrower, int uid) {
         if (borrower == null) {
             return null;
         }
@@ -122,7 +123,7 @@ public class Item {
             return null;
         }
 
-        Loan loan = new Loan(new LoanDAOMemory().nextId());
+        Loan loan = new Loan(uid/*new LoanDAOMemory().nextId()*/);
         loan.setItem(this);
         loan.setBorrower(borrower);
         loan.setLoanDate(SystemDate.now());

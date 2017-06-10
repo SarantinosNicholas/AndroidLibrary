@@ -16,6 +16,7 @@ public interface PublisherDAO
     Publisher find(int author_id);
     List<Publisher> findAll();
     void save(Publisher entity);
+    void delete(Publisher entity);
 
     int nextId();
 }

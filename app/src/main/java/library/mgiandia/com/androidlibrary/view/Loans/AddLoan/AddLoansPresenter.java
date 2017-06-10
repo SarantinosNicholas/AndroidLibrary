@@ -46,7 +46,7 @@ public class AddLoansPresenter {
         view.setBookList(booksNames);
     }
 
-    public void onSaveAuthor()
+    public void onSaveLoan()
     {
         Book selectedBook = books.find(view.getSelectedBookId());
 
@@ -65,7 +65,7 @@ public class AddLoansPresenter {
             view.showAlert("Ανέφικτος ο Δανεισμός", "Ο συγκεκριμένος Δανειζόμενος δεν μπορεί να δανειστεί βιβλία.");
         else
         {
-            loans.save(availableItem.borrow(attachedBorrower));
+            loans.save(availableItem.borrow(attachedBorrower, loans.nextId()));
             view.successfullyAddLoanAndFinishActivity("Ο Δανειζόμενος #"+attachedBorrower.getBorrowerNo()+" δανείστηκε το αντίτυπο #"+availableItem.getItemNumber());
         }
     }

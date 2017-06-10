@@ -5,6 +5,7 @@ import java.util.List;
 
 import library.mgiandia.com.androidlibrary.dao.AuthorDAO;
 import library.mgiandia.com.androidlibrary.domain.Author;
+import library.mgiandia.com.androidlibrary.domain.Item;
 
 /**
  * @author Νίκος Σαραντινός
@@ -14,21 +15,25 @@ import library.mgiandia.com.androidlibrary.domain.Author;
  */
 
 public class AuthorDAOMemory implements AuthorDAO {
-    protected static ArrayList<Author> authors = new ArrayList<Author>();
+    protected static ArrayList<Author> entities = new ArrayList<Author>();
+
+    public void delete(Author entity) {
+        entities.remove(entity);
+    }
 
     public List<Author> findAll() {
         ArrayList<Author> result = new ArrayList<Author>();
-        result.addAll(authors);
+        result.addAll(entities);
         return result;
     }
 
     public void save(Author entity) {
-        authors.add(entity);
+        entities.add(entity);
     }
 
     public Author find(int author_id)
     {
-        for(Author author : authors)
+        for(Author author : entities)
             if(author.getId() == author_id)
                 return author;
 
@@ -38,6 +43,6 @@ public class AuthorDAOMemory implements AuthorDAO {
     @Override
     public int nextId()
     {
-        return (authors.size() > 0 ? authors.get(authors.size()-1).getId()+1 : 1);
+        return (entities.size() > 0 ? entities.get(entities.size()-1).getId()+1 : 1);
     }
 }

@@ -3,6 +3,8 @@ package library.mgiandia.com.androidlibrary.view.Publisher.AddPublisher;
 import android.util.Patterns;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import library.mgiandia.com.androidlibrary.contacts.Address;
 import library.mgiandia.com.androidlibrary.contacts.EmailAddress;
@@ -26,6 +28,13 @@ public class AddEditPublisherPresenter
     private List<String> countries;
 
     private Publisher attachedPublisher;
+
+    private boolean validateEmail(String email)
+    {
+        Pattern p = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher m = p.matcher(email);
+        return m.matches();
+    }
 
     private boolean verifyOnlyDigits(String in)
     {
@@ -77,9 +86,9 @@ public class AddEditPublisherPresenter
 
         if(name.length() < 2 || name.length() > 15)
             view.showErrorMessage("Σφάλμα!", "Συμπληρώστε 2 έως 15 χαρακτήρες στο Όνομα.");
-        else if(phone.length() < 2 || phone.length() > 15 || !Patterns.PHONE.matcher(phone).matches())
+        else if(phone.length() < 2 || phone.length() > 15 || !verifyOnlyDigits(phone))
             view.showErrorMessage("Σφάλμα!", "Συμπληρώστε ορθά το Τηλέφωνο.");
-        else if(email.length() < 2 || email.length() > 100 || !Patterns.EMAIL_ADDRESS.matcher(email).matches())
+        else if(email.length() < 2 || email.length() > 100 || !validateEmail(email))
             view.showErrorMessage("Σφάλμα!", "Συμπληρώστε ορθά το Email.");
         else if(addressCity.length() < 2 || addressCity.length() > 15)
             view.showErrorMessage("Σφάλμα!", "Συμπληρώστε 2 έως 15 χαρακτήρες στην Πόλη.");

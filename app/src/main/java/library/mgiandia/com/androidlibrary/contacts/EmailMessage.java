@@ -88,6 +88,6 @@ public class EmailMessage {
      * @param text Το κείμενο που επισυνάπτεται στο τέλος του μηνύματος.
      */
     public void appendToBody(String text) {
-        subject += text;
+        body += text;
     }
 }

@@ -14,11 +14,8 @@ import library.mgiandia.com.androidlibrary.domain.BorrowerCategory;
 public interface BorrowerCategoryDAO
 {
     void save(BorrowerCategory entity);
-
     void delete(BorrowerCategory entity);
-
     BorrowerCategory find(int uid);
-
     List<BorrowerCategory> findAll();
 
     int nextId();

@@ -2,12 +2,9 @@ package library.mgiandia.com.androidlibrary.memorydao;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import library.mgiandia.com.androidlibrary.dao.BorrowerDAO;
 import library.mgiandia.com.androidlibrary.domain.Borrower;
-import library.mgiandia.com.androidlibrary.domain.ItemState;
-import library.mgiandia.com.androidlibrary.domain.Loan;
 
 /**
  * @author Νίκος Σαραντινός

@@ -31,6 +31,8 @@ public class ISBN {
      * @return {@code true} εάν είναι ορθό το ISBN
      */
     public final boolean isValid() {
+
+        /*
         if (!hasValidLength()) {
             return false;
         }
@@ -42,19 +44,8 @@ public class ISBN {
         if (!hasValidCheckDigit()) {
             return false;
         }
+        */
 
-        return true;
-    }
-
-    boolean hasValidLength() {
-        return true;
-    }
-
-    boolean hasValidCharacters() {
-        return true;
-    }
-    
-    boolean hasValidCheckDigit() {
         return true;
     }
 

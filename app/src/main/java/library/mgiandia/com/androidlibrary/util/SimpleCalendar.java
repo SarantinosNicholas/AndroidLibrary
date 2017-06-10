@@ -167,10 +167,6 @@ public class SimpleCalendar implements  Comparable<SimpleCalendar> {
 
         SimpleCalendar theDate = (SimpleCalendar) other;
 
-        if (date == null) {
-            return theDate.date == null;
-        }
-
         if (getYear() != theDate.getYear()) {
             return false;
         }
@@ -190,6 +186,4 @@ public class SimpleCalendar implements  Comparable<SimpleCalendar> {
     public int hashCode() {
         return date == null ? 0 : date.hashCode();
     }
-
-
 }

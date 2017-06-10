@@ -1,50 +1,73 @@
-package library.mgiandia.com.androidlibrary.memorydao;
+package library.mgiandia.com.androidlibrary.dao;
+
+import java.util.List;
 
 import library.mgiandia.com.androidlibrary.contacts.Address;
 import library.mgiandia.com.androidlibrary.contacts.EmailAddress;
 import library.mgiandia.com.androidlibrary.contacts.TelephoneNumber;
 import library.mgiandia.com.androidlibrary.contacts.ZipCode;
-import library.mgiandia.com.androidlibrary.dao.AuthorDAO;
-import library.mgiandia.com.androidlibrary.dao.BookDAO;
-import library.mgiandia.com.androidlibrary.dao.BorrowerCategoryDAO;
-import library.mgiandia.com.androidlibrary.dao.BorrowerDAO;
-import library.mgiandia.com.androidlibrary.dao.ItemDAO;
-import library.mgiandia.com.androidlibrary.dao.LoanDAO;
-import library.mgiandia.com.androidlibrary.dao.PublisherDAO;
-import library.mgiandia.com.androidlibrary.domain.Author;
-import library.mgiandia.com.androidlibrary.domain.Book;
-import library.mgiandia.com.androidlibrary.domain.Borrower;
-import library.mgiandia.com.androidlibrary.domain.BorrowerCategory;
-import library.mgiandia.com.androidlibrary.domain.ISBN;
-import library.mgiandia.com.androidlibrary.domain.Item;
-import library.mgiandia.com.androidlibrary.domain.ItemState;
-import library.mgiandia.com.androidlibrary.domain.Loan;
-import library.mgiandia.com.androidlibrary.domain.Publisher;
+import library.mgiandia.com.androidlibrary.domain.*;
 import library.mgiandia.com.androidlibrary.service.LoanService;
 import library.mgiandia.com.androidlibrary.util.Money;
-import library.mgiandia.com.androidlibrary.util.SimpleCalendar;
 
 /**
- * @author Νίκος Σαραντινός
- *
- * Υλοποιήθηκε στα πλαίσια του μαθήματος Τεχνολογία Λογισμικού το έτος 2016-2017 υπό την επίβλεψη του Δρ. Βασίλη Ζαφείρη.
+ * Κλάση που αναλαμβάνει να αρχικοποιήσει τα δεδομένα της βάσης δεδομένων<p>
+ * Βοηθητική κλάση που παρέχει δεδομένα για τα παραδείγματα και τις δοκιμασίες ελέγχου<p>
+ * Βιβλία
+ * <p>
+ * Booch, G.,  Rumbaugh, J., Jacobson I., The Unified Modeling Language User Guide , 2nd ed., Addison Wesley, 2005
+ * <p>
+ * Fowler, M., UML Distilled, 3rd ed., Addison-Wesley, 2004
+ * <p>
+ * Fowler, M., Refactoring: Improving the Design of Existing Code. Addison-Wesley, 1999
+ * <p>
+ * Αντίτυπα
+ * <p>
+ * 1 - The Unified Modeling Language User Guide
+ * <p>
+ * 2 -  UML Distilled
+ * <p>
+ * 3 - Refactoring: Improving the Design of Existing Code
+ * <p>
+ * 4 - The Unified Modeling Language User Guide
+ * <p>
+ * 5 - UML Distilled
+ * <p>
+ * Δανειζόμενοι
+ * <p>
+ * 1, Μανόλης Γιακουμάκης, Καθηγητής
+ * <p>
+ * 2, Νίκος Διαμαντίδης, Φοιτητής
+ * <p>
+ *@author Νίκος Διαμαντίδης
  *
  */
 
-public class InitializeData
+public abstract class Initializer
 {
-    private static boolean initialized = false;
+    public static final int GIAKOUMAKIS_ID = 2;
+    public static final int DIAMANTIDIS_ID = 8;
 
-    private static Item addOneBookCopy(Book book)
+    public static final int UML_USER_GUIDE_ID1 = 3;
+    public static final int UML_DISTILLED_ID1 = 1;
+    public static final int UML_REFACTORING_ID = 5;
+    public static final int UML_USER_GUIDE_ID2 = 4;
+    public static final int UML_DISTILLED_ID2 = 2;
+
+
+    //διαγράφουμε όλα τα δεδομένα στη βάση δεδομένων
+    protected abstract void eraseData();
+
+    private Item addOneBookCopy(Book book)
     {
-        ItemDAO item = new ItemDAOMemory();
+        ItemDAO item = getItemDAO();
         Item itemTmp = new Item(item.nextId());
         itemTmp.setBook(book);
         item.save(itemTmp);
         return itemTmp;
     }
 
-    public static Item makeAvailable(Item item)
+    public Item makeAvailable(Item item)
     {
         if(item.getState() == ItemState.NEW)
             item.available();
@@ -52,21 +75,21 @@ public class InitializeData
         return item;
     }
 
-    public static void init()
+    public void prepareData()
     {
-        if(initialized) return;
-        else initialized = true;
+        // πριν εισάγουμε τα δεδομένα διαγράφουμε ότι υπάρχει
+        eraseData();
 
-        PublisherDAO publisherDAO = new PublisherDAOMemory();
+        PublisherDAO publisherDAO = getPublisherDAO();
 
         publisherDAO.save(new Publisher(publisherDAO.nextId(), "McGraw-Hill Education", new Address("Αιόλου", "10", "Αθήνα",
                 new ZipCode("100"), "Ελλάδα"), new EmailAddress("akr.agam@gmail.com"), new TelephoneNumber("2101070741")));
 
-        publisherDAO.save(new Publisher(publisherDAO.nextId(), "Wiley", new Address("Ακαδημίας", "22", "Αθήνα",
-                new ZipCode("129"), "Ελλάδα"), new EmailAddress("gain.agg@gmail.com"), new TelephoneNumber("2102070991")));
+        publisherDAO.save(new Publisher(publisherDAO.nextId(), "Addison Wesley", new Address("Ακαδημίας", "22", "Αθήνα",
+                new ZipCode("129"), "Ελλάδα"), new EmailAddress("add.wes@gmail.com"), new TelephoneNumber("2102070991")));
 
 
-        AuthorDAO authorDAO = new AuthorDAOMemory();
+        AuthorDAO authorDAO = getAuthorDAO();
 
         authorDAO.save(new Author(authorDAO.nextId(), "Ευάγγελος", "Αβέρωφ"));
         authorDAO.save(new Author(authorDAO.nextId(), "Χρήστος", "Βυζάντιος"));
@@ -75,7 +98,7 @@ public class InitializeData
         authorDAO.save(new Author(authorDAO.nextId(), "Βαγγέλης", "Ηλιόπουλος"));
 
 
-        BorrowerCategoryDAO borrowerCategoryDao = new BorrowerCategoryDAOMemory();
+        BorrowerCategoryDAO borrowerCategoryDao = getBorrowerCategoryDAO();
 
         borrowerCategoryDao.save(new BorrowerCategory(borrowerCategoryDao.nextId(), "Προπτυχιακός Φοιτητής", 7 , 2, Money.euros(10)));
         borrowerCategoryDao.save(new BorrowerCategory(borrowerCategoryDao.nextId(), "Μεταπτυχιακός Φοιτητής", 14 , 3, Money.euros(7)));
@@ -84,7 +107,7 @@ public class InitializeData
         borrowerCategoryDao.save(new BorrowerCategory(borrowerCategoryDao.nextId(), "Καθηγητής", 180 , 6, Money.euros(0)));
 
 
-        BorrowerDAO borrowerDao = new BorrowerDAOMemory();
+        BorrowerDAO borrowerDao = getBorrowerDAO();
         //all country names should be from our list, see string.xml
 
         borrowerDao.save(new Borrower(borrowerDao.nextId(), "Αγαμέμνων", "Ακρίδας",
@@ -117,12 +140,25 @@ public class InitializeData
 
         borrowerDao.save(new Borrower(borrowerDao.nextId(), "Νίκος", "Διαμαντίδης",
                 new Address("Πανεπιστημίου", "27", "Αθήνα", new ZipCode("1229"), "Ελλάδα"),
-                new EmailAddress("nad@aueb.gr"), new TelephoneNumber("2108203292"), borrowerCategoryDao.find(5/*"Καθηγητής"*/)));
+                new EmailAddress("nad@aueb.gr"), new TelephoneNumber("2108203292"), borrowerCategoryDao.find(5/*"Προπτυχιακός Φοιτητής"*/)));
 
-        BookDAO bookDao = new BookDAOMemory();
+        BookDAO bookDao = getBookDAO();
 
         bookDao.save(new Book(bookDao.nextId(), "Don Quixote", new ISBN("123456"), "978-3-16", 2012, publisherDAO.find(2)));
         bookDao.save(new Book(bookDao.nextId(), "The Odyssey", new ISBN("738912"), "123-4-56", 2000, publisherDAO.find(1)));
+
+        bookDao.save(new Book(bookDao.nextId(), "UML Distilled", new ISBN("2"), "654-4567", 2004, publisherDAO.find(2)));
+        bookDao.save(new Book(bookDao.nextId(), "The UML User Guide", new ISBN("1"), "456-6546", 2005, publisherDAO.find(2)));
+        bookDao.save(new Book(bookDao.nextId(), "Refactoring", new ISBN("3"), "554-34534", 1999, publisherDAO.find(2)));
+
+        addOneBookCopy(bookDao.find(3)).available();
+        addOneBookCopy(bookDao.find(3)).available();
+
+        addOneBookCopy(bookDao.find(4)).available();
+        addOneBookCopy(bookDao.find(4)).available();
+
+        addOneBookCopy(bookDao.find(5)).available();
+
 
         //add a copy per book
         addOneBookCopy(bookDao.find(1));
@@ -131,6 +167,10 @@ public class InitializeData
         //publishers are auto informed about the added books
 
         //now, link authors with books
+        authorDAO.find(4).addBook(bookDao.find(3));
+        authorDAO.find(4).addBook(bookDao.find(4));
+        authorDAO.find(4).addBook(bookDao.find(5));
+
         authorDAO.find(1).addBook(bookDao.find(1));
         authorDAO.find(2).addBook(bookDao.find(1));
         authorDAO.find(3).addBook(bookDao.find(1));
@@ -138,17 +178,26 @@ public class InitializeData
         authorDAO.find(3).addBook(bookDao.find(2));
         authorDAO.find(4).addBook(bookDao.find(2));
 
-        new ItemDAOMemory().find(1).available();
+        getItemDAO().find(7).available();
         LoanService service = new LoanService();
         service.findBorrower(1);
-        service.borrow(1);
+        service.borrow(7, getLoanDAO().nextId());
 
         //some loans
-        LoanDAO loans = new LoanDAOMemory();
-        loans.save(makeAvailable(addOneBookCopy(bookDao.find(2))).borrow(borrowerDao.find(8)));
-        loans.save(makeAvailable(addOneBookCopy(bookDao.find(1))).borrow(borrowerDao.find(8)));
-        loans.save(makeAvailable(addOneBookCopy(bookDao.find(2))).borrow(borrowerDao.find(5)));
-        loans.save(makeAvailable(addOneBookCopy(bookDao.find(1))).borrow(borrowerDao.find(3)));
-        loans.save(makeAvailable(addOneBookCopy(bookDao.find(1))).borrow(borrowerDao.find(1)));
+        LoanDAO loans = getLoanDAO();
+        loans.save(makeAvailable(addOneBookCopy(bookDao.find(2))).borrow(borrowerDao.find(8), getLoanDAO().nextId()));
+        loans.save(makeAvailable(addOneBookCopy(bookDao.find(1))).borrow(borrowerDao.find(8), getLoanDAO().nextId()));
+        loans.save(makeAvailable(addOneBookCopy(bookDao.find(2))).borrow(borrowerDao.find(5), getLoanDAO().nextId()));
+        loans.save(makeAvailable(addOneBookCopy(bookDao.find(1))).borrow(borrowerDao.find(3), getLoanDAO().nextId()));
+        loans.save(makeAvailable(addOneBookCopy(bookDao.find(1))).borrow(borrowerDao.find(1), getLoanDAO().nextId()));
     }
+
+    public abstract AuthorDAO getAuthorDAO();
+    public abstract BookDAO getBookDAO();
+    public abstract BorrowerCategoryDAO getBorrowerCategoryDAO();
+    public abstract BorrowerDAO getBorrowerDAO();
+    public abstract ItemDAO getItemDAO();
+    public abstract LoanDAO getLoanDAO();
+    public abstract PublisherDAO getPublisherDAO();
+    public abstract CountryDAO getCountryDAO();
 }
